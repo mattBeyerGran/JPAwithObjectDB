@@ -21,6 +21,15 @@ public class Person implements Serializable{
 	private String nachname;
 	private int age;     // mit gebDat ersetzen, wenn klar ist, wie man Datumsfelder serialisiert.
 	
+	public Person() {	
+	}
+	
+	public Person(String vorname, String nachname, int age) {	
+		this.vorname = vorname;
+		this.nachname = nachname;
+		this.age = age;
+	}
+	
 	public String getVorname() {
 		return vorname;
 	}

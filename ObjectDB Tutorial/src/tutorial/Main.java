@@ -38,6 +38,25 @@ public class Main {
             System.out.println(p);
         }
 
+        // Person anlegen
+        EntityManager emPers = emf.createEntityManager();
+        emPers.getTransaction().begin();
+        Person pers1 = new Person("Hans", "Dampf", 48);
+        emPers.persist(pers1);
+        Person pers2 = new Person("Hannelore", "Dampfer", 88);
+        emPers.persist(pers2);
+        Person pers3 = new Person("Max", "Garten", 18);
+        emPers.persist(pers3);
+        emPers.getTransaction().commit();
+        
+        // alle Personen ausgeben
+        TypedQuery<Person> query1 =
+                emPers.createQuery("SELECT pers FROM Person pers", Person.class);
+            List<Person> results2 = query1.getResultList();
+            for (Person pers : results2) {
+                System.out.println(pers);
+            }
+        
         // Close the database connection:
         em.close();
         emf.close();
