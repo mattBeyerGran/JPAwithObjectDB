@@ -1,7 +1,13 @@
 package tutorial;
 
+import java.beans.Transient;
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
+
 import javax.persistence.*;
+
 
 @Entity
 public class Person implements Serializable{
@@ -19,15 +25,21 @@ public class Person implements Serializable{
 	
 	private String vorname;
 	private String nachname;
-	private int age;     // mit gebDat ersetzen, wenn klar ist, wie man Datumsfelder serialisiert.
+	private Date gebDat;
 	
+	
+	
+	public void setGebDat(String gebDat) {
+		this.gebDat = Date.valueOf(gebDat);
+	}
+
 	public Person() {	
 	}
 	
-	public Person(String vorname, String nachname, int age) {	
+	public Person(String vorname, String nachname, String gebDat) {	
 		this.vorname = vorname;
 		this.nachname = nachname;
-		this.age = age;
+		this.gebDat = Date.valueOf(gebDat);
 	}
 	
 	public String getVorname() {
@@ -42,16 +54,17 @@ public class Person implements Serializable{
 	public void setNachname(String nachname) {
 		this.nachname = nachname;
 	}
-	public int getAge() {
-		return age;
-	}
-	public void setAge(int age) {
-		this.age = age;
+	@Transient
+	public int rechneAge(Date gebDat) {
+		LocalDate  heute  = LocalDate.now();
+		LocalDate gebDat2 = gebDat.toLocalDate();
+		Period period = Period.between(gebDat2, heute);
+		return period.getYears();
 	}
 	
 	@Override
     public String toString() {
-		String out = this.vorname + " " + this.nachname + "  ist " + this.age + " Jahre alt";
+		String out = this.vorname + " " + this.nachname + "  ist " + rechneAge(gebDat) + " Jahre alt";
         return out;
 	}
 }

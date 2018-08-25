@@ -41,11 +41,11 @@ public class Main {
         // Person anlegen
         EntityManager emPers = emf.createEntityManager();
         emPers.getTransaction().begin();
-        Person pers1 = new Person("Hans", "Dampf", 48);
+        Person pers1 = new Person("Hans", "Dampf", "2001-12-12") ;
         emPers.persist(pers1);
-        Person pers2 = new Person("Hannelore", "Dampfer", 88);
+        Person pers2 = new Person("Hannelore", "Dampfer", "1961-10-17");
         emPers.persist(pers2);
-        Person pers3 = new Person("Max", "Garten", 18);
+        Person pers3 = new Person("Max", "Garten", "1956-07-19");
         emPers.persist(pers3);
         emPers.getTransaction().commit();
         
